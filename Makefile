@@ -118,8 +118,8 @@ rundev:
 
 run:
 ifeq ("$(MF_BROKER_TYPE)", "rabbitmq")
-	sed "s,file: brokers/.*.yml,file: brokers/rabbitmq/docker-compose.yml.yml," docker/docker-compose.yml
-	sed "s,MF_BROKER_URL: .*,MF_BROKER_URL: $$\{MF_RABBITMQ_URL\}," docker/docker-compose.yml
+	sed "s,file: brokers/.*.yml,file: brokers/rabbitmq/docker-compose.yml.yml," "docker/docker-compose.yml" > "docker/docker-compose.yml.tmp" && mv "docker/docker-compose.yml.tmp" "docker/docker-compose.yml"
+	sed "s,MF_BROKER_URL: .*,MF_BROKER_URL: $$\{MF_RABBITMQ_URL\}," "docker/docker-compose.yml" > "docker/docker-compose.yml.tmp" && mv "docker/docker-compose.yml.tmp" "docker/docker-compose.yml"
 else ifeq ("$(MF_BROKER_TYPE)", "nats")
 	sed "s,file: brokers/.*.yml,file: brokers/nats/docker-compose.yml," "docker/docker-compose.yml" > "docker/docker-compose.yml.tmp" && mv "docker/docker-compose.yml.tmp" "docker/docker-compose.yml"
 	sed "s,MF_BROKER_URL: .*,MF_BROKER_URL: $$\{MF_NATS_URL\}," "docker/docker-compose.yml" > "docker/docker-compose.yml.tmp" && mv "docker/docker-compose.yml.tmp" "docker/docker-compose.yml"
